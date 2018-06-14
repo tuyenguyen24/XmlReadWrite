@@ -79,8 +79,12 @@
             this.ckId = new System.Windows.Forms.CheckBox();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btChange = new System.Windows.Forms.Button();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.btClear = new System.Windows.Forms.Button();
+            this.btShow = new System.Windows.Forms.Button();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -90,6 +94,7 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -99,7 +104,7 @@
             this.toolStripMenuItem2});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(881, 26);
+            this.menuStrip1.Size = new System.Drawing.Size(1235, 26);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -214,9 +219,6 @@
             // 
             this.dataGridView1.AllowDrop = true;
             this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Info;
@@ -224,7 +226,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(179, 29);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 21;
-            this.dataGridView1.Size = new System.Drawing.Size(570, 393);
+            this.dataGridView1.Size = new System.Drawing.Size(518, 393);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseUp);
             // 
@@ -275,7 +277,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(755, 39);
+            this.button1.Location = new System.Drawing.Point(1052, 39);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -341,7 +343,7 @@
             this.toolStripStatusLabel2});
             this.statusStrip1.Location = new System.Drawing.Point(0, 633);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(881, 23);
+            this.statusStrip1.Size = new System.Drawing.Size(1235, 23);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -354,7 +356,7 @@
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(822, 18);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(866, 18);
             this.toolStripStatusLabel2.Spring = true;
             this.toolStripStatusLabel2.Text = "Demo";
             this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -362,7 +364,7 @@
             // cbFilter
             // 
             this.cbFilter.FormattingEnabled = true;
-            this.cbFilter.Location = new System.Drawing.Point(755, 139);
+            this.cbFilter.Location = new System.Drawing.Point(1052, 139);
             this.cbFilter.Name = "cbFilter";
             this.cbFilter.Size = new System.Drawing.Size(121, 20);
             this.cbFilter.TabIndex = 6;
@@ -370,7 +372,7 @@
             // 
             // btLoad
             // 
-            this.btLoad.Location = new System.Drawing.Point(755, 97);
+            this.btLoad.Location = new System.Drawing.Point(1052, 68);
             this.btLoad.Name = "btLoad";
             this.btLoad.Size = new System.Drawing.Size(75, 23);
             this.btLoad.TabIndex = 7;
@@ -380,7 +382,7 @@
             // 
             // tbSearch
             // 
-            this.tbSearch.Location = new System.Drawing.Point(755, 183);
+            this.tbSearch.Location = new System.Drawing.Point(1052, 183);
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(121, 19);
             this.tbSearch.TabIndex = 8;
@@ -393,7 +395,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 428);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(737, 202);
+            this.tabControl1.Size = new System.Drawing.Size(685, 202);
             this.tabControl1.TabIndex = 9;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -402,7 +404,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(729, 176);
+            this.tabPage1.Size = new System.Drawing.Size(677, 176);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -421,12 +423,12 @@
             // 
             this.groupBox1.Controls.Add(this.ckName);
             this.groupBox1.Controls.Add(this.ckId);
-            this.groupBox1.Location = new System.Drawing.Point(759, 224);
+            this.groupBox1.Location = new System.Drawing.Point(1056, 224);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(110, 76);
+            this.groupBox1.Size = new System.Drawing.Size(142, 76);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "Filter";
             // 
             // ckName
             // 
@@ -453,24 +455,35 @@
             // trackBar1
             // 
             this.trackBar1.LargeChange = 25;
-            this.trackBar1.Location = new System.Drawing.Point(759, 450);
+            this.trackBar1.Location = new System.Drawing.Point(1056, 450);
             this.trackBar1.Maximum = 255;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(104, 45);
+            this.trackBar1.Size = new System.Drawing.Size(142, 45);
             this.trackBar1.SmallChange = 2;
             this.trackBar1.TabIndex = 0;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btChange);
             this.groupBox2.Controls.Add(this.radioButton2);
             this.groupBox2.Controls.Add(this.radioButton1);
-            this.groupBox2.Location = new System.Drawing.Point(765, 322);
+            this.groupBox2.Location = new System.Drawing.Point(1062, 322);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(104, 71);
+            this.groupBox2.Size = new System.Drawing.Size(136, 100);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
+            this.groupBox2.Text = "Change";
+            // 
+            // btChange
+            // 
+            this.btChange.Location = new System.Drawing.Point(3, 71);
+            this.btChange.Name = "btChange";
+            this.btChange.Size = new System.Drawing.Size(75, 23);
+            this.btChange.TabIndex = 2;
+            this.btChange.Text = "Change";
+            this.btChange.UseVisualStyleBackColor = true;
+            this.btChange.Click += new System.EventHandler(this.btChange_Click);
             // 
             // radioButton2
             // 
@@ -496,11 +509,44 @@
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
+            // btClear
+            // 
+            this.btClear.Location = new System.Drawing.Point(1052, 97);
+            this.btClear.Name = "btClear";
+            this.btClear.Size = new System.Drawing.Size(75, 23);
+            this.btClear.TabIndex = 12;
+            this.btClear.Text = "Clear";
+            this.btClear.UseVisualStyleBackColor = true;
+            this.btClear.Click += new System.EventHandler(this.btClear_Click);
+            // 
+            // btShow
+            // 
+            this.btShow.Location = new System.Drawing.Point(1135, 39);
+            this.btShow.Name = "btShow";
+            this.btShow.Size = new System.Drawing.Size(75, 23);
+            this.btShow.TabIndex = 13;
+            this.btShow.Text = "Show";
+            this.btShow.UseVisualStyleBackColor = true;
+            this.btShow.Click += new System.EventHandler(this.btShow_Click);
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(703, 29);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowTemplate.Height = 21;
+            this.dataGridView2.Size = new System.Drawing.Size(343, 393);
+            this.dataGridView2.TabIndex = 14;
+            // 
             // DemoXml
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(881, 656);
+            this.ClientSize = new System.Drawing.Size(1235, 656);
+            this.Controls.Add(this.dataGridView2);
+            this.Controls.Add(this.btShow);
+            this.Controls.Add(this.btClear);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.groupBox1);
@@ -531,6 +577,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -582,6 +629,10 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Button btChange;
+        private System.Windows.Forms.Button btClear;
+        private System.Windows.Forms.Button btShow;
+        private System.Windows.Forms.DataGridView dataGridView2;
     }
 }
 

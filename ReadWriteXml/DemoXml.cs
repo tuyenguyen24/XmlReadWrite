@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.IO;
+using System.Data.SqlClient;
+using System.Collections;
 
 
 namespace ReadWriteXml
@@ -45,6 +47,8 @@ namespace ReadWriteXml
             this.AllowDrop = true;
             treeView1.DragEnter += Form1_DragEnter;
             treeView1.DragDrop += new DragEventHandler(Form1_DragDrop);
+
+
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -281,7 +285,7 @@ namespace ReadWriteXml
                 {
                     //dv.RowFilter = string.Format("Age Like '%{0}'", selectedItem);
                     string cl = table.Columns[2].ToString();
-                    dv.RowFilter = string.Format(cl+"  = {0}", selectedItem);
+                    dv.RowFilter = string.Format(cl+" = {0}", selectedItem);
                     
                     
                     //dv.RowFilter = string.Format("Age  = {0}", selectedItem);
@@ -307,7 +311,8 @@ namespace ReadWriteXml
 
 
                 //DataGridViewComboBoxCell cbCell = (DataGridViewComboBoxCell)dataGridView1.Rows[i].Cells[2];
-                cbFilter.Items.Add(table.Rows[i]["Product_Price"]);
+                string load = table.Columns[2].ToString();
+                cbFilter.Items.Add(table.Rows[i][""+load+""]);
 
             }
         }
@@ -401,5 +406,99 @@ namespace ReadWriteXml
         {
             groupBox1.Enabled = false;
         }
+
+        private void btClear_Click(object sender, EventArgs e)
+        {
+           //dataGridView1.DataSource = null;
+           // dataGridView1.Rows.Clear();
+            //dataGridView1.Columns.Clear();
+           // dataGridView1.Refresh();
+            if (this.dataGridView1.DataSource != null)
+            {
+                dataGridView1.DataSource = null;
+            }
+            else
+            {
+                dataGridView1.Rows.Clear();
+            }
+        }
+
+        private void btShow_Click(object sender, EventArgs e)
+        {
+            string sql = "Select InvoiceNo from Receipt";
+            SqlConnection connection = new SqlConnection(@"Data Source=TUYENNT13-HP\SQLEXPRESS;Initial Catalog=Demo;Integrated Security=True");
+            SqlDataAdapter sda = new SqlDataAdapter(sql, connection);
+           
+
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            dataGridView2.DataSource = dt;
+
+            //手工追加
+
+            //DataGridViewComboBoxColumn cmb = new DataGridViewComboBoxColumn();
+            //cmb.HeaderText = "Fill Data";
+            //cmb.Name = "cmb";
+            //cmb.MaxDropDownItems = 4;
+            //cmb.Items.Add("TX");
+            //cmb.Items.Add("RX");
+            //dataGridView2.Columns.Add(cmb);
+
+            // リストで追加
+
+            ArrayList StringList = new ArrayList();
+
+            SqlDataAdapter sda1 = new SqlDataAdapter("Select PartNo From Invoice", connection);
+            DataTable dt1 = new DataTable();
+            sda1.Fill(dt1);
+
+            foreach (DataRow item in dt1.Rows)
+            {
+                StringList.Add(item["PartNo"].ToString());
+            }
+
+            DataGridViewComboBoxColumn cmb = new DataGridViewComboBoxColumn();
+            cmb.HeaderText = "Fill Data";
+            cmb.Name = "cmb";
+            //cmb.DataSource = StringList;
+            cmb.DataSource = Enum.GetNames(typeof(Propellants));
+            dataGridView2.Columns.Add(cmb);
+
+            DataGridViewCheckBoxColumn ck = new DataGridViewCheckBoxColumn();
+            ck.HeaderText = "結果";
+            
+            dataGridView2.Columns.Add(ck);
+            dataGridView2.Rows[1].Cells[2].Value = true;
+        }
+
+        private void btChange_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView2.Rows)
+            {
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[2];
+                if (chk.Selected == false )
+                {
+                    chk.Value = chk.TrueValue;
+                }
+                else if (chk.Selected == true)
+                {
+                    chk.Value = chk.FalseValue;
+                }
+
+            }
+            //dataGridView2.EndEdit();
+
+        }
+    }
+
+    //enumで追加
+    enum Propellants
+    {
+        Chemical = 10,
+        Solar = 20,
+        Laser = 30,
+        Nuclear = 40,
+        Plasma = 50,
+        AntiMatter = 60
     }
 }
