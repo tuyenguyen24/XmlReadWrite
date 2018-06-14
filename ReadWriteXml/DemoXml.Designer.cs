@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("BUS", 1, 2);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Message");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("ECU");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("New vehicle", new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode6,
-            treeNode7});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("BUS", 1, 2);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Message");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("ECU");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("New vehicle", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DemoXml));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,12 +75,12 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ckId = new System.Windows.Forms.CheckBox();
             this.ckName = new System.Windows.Forms.CheckBox();
+            this.ckId = new System.Windows.Forms.CheckBox();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -290,20 +290,20 @@
             this.treeView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.treeView1.Location = new System.Drawing.Point(12, 29);
             this.treeView1.Name = "treeView1";
-            treeNode5.ImageIndex = 1;
-            treeNode5.Name = "nodeBus";
-            treeNode5.SelectedImageIndex = 2;
-            treeNode5.Text = "BUS";
-            treeNode6.ImageIndex = 2;
-            treeNode6.Name = "nodeMessage";
-            treeNode6.Text = "Message";
-            treeNode7.Name = "nodeEcu";
-            treeNode7.SelectedImageIndex = 1;
-            treeNode7.Text = "ECU";
-            treeNode8.Name = "nodeVihicle";
-            treeNode8.Text = "New vehicle";
+            treeNode1.ImageIndex = 1;
+            treeNode1.Name = "nodeBus";
+            treeNode1.SelectedImageIndex = 2;
+            treeNode1.Text = "BUS";
+            treeNode2.ImageIndex = 2;
+            treeNode2.Name = "nodeMessage";
+            treeNode2.Text = "Message";
+            treeNode3.Name = "nodeEcu";
+            treeNode3.SelectedImageIndex = 1;
+            treeNode3.Text = "ECU";
+            treeNode4.Name = "nodeVihicle";
+            treeNode4.Text = "New vehicle";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode8});
+            treeNode4});
             this.treeView1.SelectedImageIndex = 0;
             this.treeView1.Size = new System.Drawing.Size(161, 393);
             this.treeView1.TabIndex = 3;
@@ -428,17 +428,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
-            // ckId
-            // 
-            this.ckId.AutoSize = true;
-            this.ckId.Location = new System.Drawing.Point(6, 18);
-            this.ckId.Name = "ckId";
-            this.ckId.Size = new System.Drawing.Size(51, 16);
-            this.ckId.TabIndex = 11;
-            this.ckId.Text = "by ID";
-            this.ckId.UseVisualStyleBackColor = true;
-            this.ckId.CheckedChanged += new System.EventHandler(this.ckId_CheckedChanged);
-            // 
             // ckName
             // 
             this.ckName.AutoSize = true;
@@ -449,6 +438,17 @@
             this.ckName.Text = "by Name";
             this.ckName.UseVisualStyleBackColor = true;
             this.ckName.CheckedChanged += new System.EventHandler(this.ckName_CheckedChanged);
+            // 
+            // ckId
+            // 
+            this.ckId.AutoSize = true;
+            this.ckId.Location = new System.Drawing.Point(6, 18);
+            this.ckId.Name = "ckId";
+            this.ckId.Size = new System.Drawing.Size(51, 16);
+            this.ckId.TabIndex = 11;
+            this.ckId.Text = "by ID";
+            this.ckId.UseVisualStyleBackColor = true;
+            this.ckId.CheckedChanged += new System.EventHandler(this.ckId_CheckedChanged);
             // 
             // trackBar1
             // 
@@ -472,6 +472,18 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
             // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(3, 37);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(45, 16);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "tab2";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
@@ -483,17 +495,6 @@
             this.radioButton1.Text = "tab1";
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(3, 37);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(45, 16);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "tab2";
-            this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // DemoXml
             // 

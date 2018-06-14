@@ -40,6 +40,7 @@ namespace ReadWriteXml
             //dataGridView1.DataSource = table;
             tabPage1.Text =  "TabLogViewNormal";
             tabPage2.Text = "TabLogViewArrange";
+            groupBox2.Text = "Filter";
             groupBox2.Text = "Change";
             this.AllowDrop = true;
             treeView1.DragEnter += Form1_DragEnter;
@@ -336,7 +337,7 @@ namespace ReadWriteXml
             else if (tabControl1.SelectedIndex == 1)
             {
                 tabPage2.BackColor = Color.BlueViolet;
-                tabPage2.ToolTipText = "Click me";
+               // tabPage2.ToolTipText = "Click me";
             }
             
         }
@@ -394,6 +395,11 @@ namespace ReadWriteXml
         {
             groupBox2.BackColor = Color.LightSkyBlue;
             
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBox1.Enabled = false;
         }
     }
 }
