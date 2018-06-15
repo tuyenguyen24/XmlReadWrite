@@ -48,7 +48,6 @@ namespace ReadWriteXml
             treeView1.DragEnter += Form1_DragEnter;
             treeView1.DragDrop += new DragEventHandler(Form1_DragDrop);
 
-
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -85,7 +84,6 @@ namespace ReadWriteXml
             dataGridView1.DataSource = ds.Tables[0];
 
             table = ds.Tables[0];
-
 
         }
 
@@ -139,8 +137,6 @@ namespace ReadWriteXml
             serialWriter.Close();
         }
 
-
-
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!this.dataGridView1.Rows[this.rowIndex].IsNewRow)
@@ -162,18 +158,15 @@ namespace ReadWriteXml
 
         private void upToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             int rowIndex = dataGridView1.SelectedCells[0].OwningColumn.Index;
             DataRow row = table.NewRow();
             for (int i = 0; i < dataGridView1.ColumnCount; i++)
             {
                 row[i] = dataGridView1.Rows[rowIndex].Cells[i].Value.ToString();
-
             }
 
             if (rowIndex > 0)
             {
-
                 // delete the selected row
                 table.Rows.RemoveAt(rowIndex);
                 // add the new row 
@@ -193,7 +186,6 @@ namespace ReadWriteXml
             for (int i = 0; i < dataGridView1.ColumnCount; i++)
             {
                 row[i] = dataGridView1.Rows[rowIndex].Cells[i].Value.ToString();
-
             }
 
             if (rowIndex < dataGridView1.Rows.Count - 2)
@@ -252,15 +244,10 @@ namespace ReadWriteXml
 
             dataGridView1.DataSource = table;
 
-           
-
         }
 
         private void contextAddNode_Opening(object sender, CancelEventArgs e)
         {
-
-           
-
         }
 
         private void treeView1_MouseUp(object sender, MouseEventArgs e)
@@ -301,31 +288,18 @@ namespace ReadWriteXml
 
         private void btLoad_Click(object sender, EventArgs e)
         {
-
-
             for (int i = 0; i < table.Rows.Count; i++)
             {
-                // cbFilter.Items.Add(table.Rows[i]["Age"]);
-                //string name = dataGridView1.Rows[i].Cells[2].ToString();
-                //cbFilter.Items.Add(table.Rows[i][name]);
-
-
-                //DataGridViewComboBoxCell cbCell = (DataGridViewComboBoxCell)dataGridView1.Rows[i].Cells[2];
-                string load = table.Columns[2].ToString();
+                 string load = table.Columns[2].ToString();
                 cbFilter.Items.Add(table.Rows[i][""+load+""]);
-
             }
         }
 
         private void tbSearch_TextChanged(object sender, EventArgs e)
-        {
-            
-
+        {            
             //DataView dv = table.DefaultView;
             //dv.RowFilter = string.Format("Id = {0}", tbSearch.Text);
             //dataGridView1.DataSource = dv;
-
-
 
             //(dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("FirstName like '%{0}%'", tbSearch.Text);]
 
@@ -337,12 +311,10 @@ namespace ReadWriteXml
             if (tabControl1.SelectedIndex == 0)
             {
                 tabPage1.BackColor = Color.LightGray;
-                //tabPage1.Controls.Add(new Button());
             }
             else if (tabControl1.SelectedIndex == 1)
             {
                 tabPage2.BackColor = Color.BlueViolet;
-               // tabPage2.ToolTipText = "Click me";
             }
             
         }
@@ -391,7 +363,6 @@ namespace ReadWriteXml
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            //trackBar1.Value = Properties.Settings.Default.track1;
             tabPage1.BackColor = Color.FromArgb(Convert.ToInt32(trackBar1.Value), Convert.ToInt32(trackBar1.Value), Convert.ToInt32(trackBar1.Value), Convert.ToInt32(trackBar1.Value));
 
         }
@@ -409,10 +380,7 @@ namespace ReadWriteXml
 
         private void btClear_Click(object sender, EventArgs e)
         {
-           //dataGridView1.DataSource = null;
-           // dataGridView1.Rows.Clear();
-            //dataGridView1.Columns.Clear();
-           // dataGridView1.Refresh();
+         
             if (this.dataGridView1.DataSource != null)
             {
                 dataGridView1.DataSource = null;
@@ -456,38 +424,143 @@ namespace ReadWriteXml
             {
                 StringList.Add(item["PartNo"].ToString());
             }
-
+            //Add Combobox
             DataGridViewComboBoxColumn cmb = new DataGridViewComboBoxColumn();
             cmb.HeaderText = "Fill Data";
             cmb.Name = "cmb";
-            //cmb.DataSource = StringList;
-            cmb.DataSource = Enum.GetNames(typeof(Propellants));
+            cmb.DataSource = StringList;
+            //cmb.DataSource = Enum.GetNames(typeof(Propellants));
+            cmb.Width = 70;
             dataGridView2.Columns.Add(cmb);
 
+            //Add Checkbox
             DataGridViewCheckBoxColumn ck = new DataGridViewCheckBoxColumn();
-            ck.HeaderText = "結果";
-            
+            ck.HeaderText = "状態";
+            ck.Width = 70;
+
             dataGridView2.Columns.Add(ck);
             dataGridView2.Rows[1].Cells[2].Value = true;
+
+            //Add Button
+            DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
+            btn.HeaderText = "実行";
+            btn.Text = "Up/Down";
+            btn.Width = 40;
+            dataGridView2.Columns.Add(btn);
+
+            //Add Image list
+            DataGridViewImageColumn img = new DataGridViewImageColumn();
+            //Image image = Image.FromFile("Image Path");
+            Image image = (imageList1.Images)[0];
+            img.Image = image;
+            img.Width = 50;
+            dataGridView2.Columns.Add(img);
+            img.HeaderText = "Image";
+
+
+            DataGridViewComboBoxColumn cmb2 = new DataGridViewComboBoxColumn();
+            cmb2.HeaderText = "Chanel";
+            cmb2.Name = "cmb2";
+            //cmb2.DataSource = StringList;
+            //cmb.DataSource = Enum.GetNames(typeof(Propellants));
+            cmb2.Width = 70;
+            dataGridView2.Columns.Add(cmb2);
+
+
         }
 
         private void btChange_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dataGridView2.Rows)
-            {
-                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[2];
-                if (chk.Selected == false )
-                {
-                    chk.Value = chk.TrueValue;
-                }
-                else if (chk.Selected == true)
-                {
-                    chk.Value = chk.FalseValue;
-                }
+            //foreach (DataGridViewRow row in dataGridView2.Rows)
+            //{
+            //    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[2];
+            //    if (chk.Selected == false )
+            //    {
+            //        chk.Value = chk.TrueValue;
+            //    }
+            //    else if (chk.Selected == true)
+            //    {
+            //        chk.Value = chk.FalseValue;
+            //    }
 
-            }
+            //}
             //dataGridView2.EndEdit();
 
+            foreach (DataGridViewRow row in dataGridView2.Rows)
+            {
+                rowIndex = dataGridView2.SelectedCells[1].OwningRow.Index;
+                dataGridView2.Rows[1].Cells[2].Value = true;
+                //dataGridView2.Rows[e.RowIndex].Cells[1].ReadOnly = true;
+                //dataGridView2.Rows[e.RowIndex].Cells[1].Style.BackColor = SystemColors.Window;
+            }
+
+            //for (int i = 0; i < dataGridView2.RowCount; i++)
+            //{
+            //    if (dataGridView2.Rows[i].Cells[2].Value = true)
+            //    {
+
+            //    }
+            //    dataGridView2.Rows[i].Cells[2].Value = true;
+            //}
+
+        }
+        //Button click action
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 3) //make sure button index here
+            {
+                
+                dataGridView2.CurrentRow.Cells[1].ReadOnly = true;
+                dataGridView2.CurrentRow.Cells[1].Style.BackColor = Color.Blue;
+                dataGridView2.CurrentRow.Cells[4].Value = (imageList1.Images)[1]; ;
+            }
+        }
+
+        //Select combobox action
+        private void dataGridView2_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (dataGridView2.CurrentCell.ColumnIndex ==1)
+            {
+                //string selectDevice = dataGridView2.CurrentRow.Cells[1].Value.ToString();
+                //if (selectDevice == "50120065")
+                //{
+
+                //}
+                List<string> channelList = new List<string>{"ss","bb" };
+                List<string> channelList1 = new List<string> { "aa", "tt" };
+
+
+                foreach (DataGridViewRow row in dataGridView2.Rows)
+                {
+                    DataGridViewComboBoxCell comboBoxCell1 = (DataGridViewComboBoxCell)row.Cells[1];
+                    DataGridViewComboBoxCell comboBoxCell5 = (DataGridViewComboBoxCell)row.Cells[5];
+
+                  //  for (int i = 0; i < dataGridView2.RowCount - 1; i++)
+                   // {
+                       // string cmbvalue = dataGridView2.Rows[i].Cells[1].Value.ToString();
+                        //int SelecteVal = Convert.ToInt32(dataGridView2.Rows[0].Cells[1].Value);
+                        string SelecteText = Convert.ToString((dataGridView2.Rows[0].Cells[1] as DataGridViewComboBoxCell).FormattedValue.ToString());
+
+                        if (SelecteText == "50120065")
+                        {
+                            comboBoxCell5.DataSource = channelList;
+                        }
+                  //  }
+                }
+
+               
+
+            }
+        }
+        // Get Selected Value from that ComboBox
+        void comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (((ComboBox)sender).SelectedValue != null)
+            {
+                string sId = ((ComboBox)sender).SelectedValue.ToString();
+                string sName = ((ComboBox)sender).Text.ToString();
+            }
         }
     }
 
