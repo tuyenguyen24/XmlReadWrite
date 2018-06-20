@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
 [assembly: AssemblyTitle("ReadWriteXml")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Message authentication key setting tool main module.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Hewlett-Packard Company")]
-[assembly: AssemblyProduct("ReadWriteXml")]
-[assembly: AssemblyCopyright("Copyright © Hewlett-Packard Company 2018")]
+[assembly: AssemblyCompany("SUBARU CORPORATION.")]
+[assembly: AssemblyProduct("SUBARU Message authentication key setting tool.")]
+[assembly: AssemblyCopyright("Copyright ©  2018 SUBARU CORPORATION. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

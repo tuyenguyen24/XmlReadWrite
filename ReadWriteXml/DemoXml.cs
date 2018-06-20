@@ -47,6 +47,13 @@ namespace ReadWriteXml
             this.AllowDrop = true;
             treeView1.DragEnter += Form1_DragEnter;
             treeView1.DragDrop += new DragEventHandler(Form1_DragDrop);
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+            // タイマー生成
+            timer = new System.Windows.Forms.Timer();
+            timer.Tick += new EventHandler(this.timer1_Tick);
+            timer.Interval = 2000;
+            // タイマーを開始
+            timer.Start();
 
         }
 
@@ -369,7 +376,7 @@ namespace ReadWriteXml
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            groupBox2.BackColor = Color.LightSkyBlue;
+            dataGridView2.BackgroundColor = Color.LightSkyBlue;
             
         }
 
@@ -465,8 +472,12 @@ namespace ReadWriteXml
             //cmb.DataSource = Enum.GetNames(typeof(Propellants));
             cmb2.Width = 70;
             dataGridView2.Columns.Add(cmb2);
+            //Add textbox
+            DataGridViewTextBoxColumn tb = new DataGridViewTextBoxColumn();
+            tb.Name = "tb";
+            dataGridView2.Columns.Add(tb);
 
-
+           
         }
 
         private void btChange_Click(object sender, EventArgs e)
@@ -561,6 +572,68 @@ namespace ReadWriteXml
                 string sId = ((ComboBox)sender).SelectedValue.ToString();
                 string sName = ((ComboBox)sender).Text.ToString();
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            toolStripStatusLabel1.Text = "Chua san sang";
+        }
+
+        private void settingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            settingForm form = new settingForm();
+            form.Show();
+        }
+
+        private void referToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string fileName = "";
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter= "(All file)|*.*|(Text file)|*.txt",
+                FilterIndex = 0,
+                RestoreDirectory = true
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                fileName = openFileDialog.FileName;
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            List<string[]> stringsMain = new List<string[]>();
+            GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location, stringsMain);
+
+            List<string[]> stringsReference = new List<string[]>();
+            GetVersionInfo("Authentication.dll", stringsReference);
+            GetVersionInfo("CustomControls.dll", stringsReference);
+            GetVersionInfo("CommonModules.dll", stringsReference);
+            GetVersionInfo("CommunicationModules.dll", stringsReference);
+            GetVersionInfo("CommunicationProtocol.dll", stringsReference);
+            GetVersionInfo("Languages.dll", stringsReference);
+            ///GetVersionInfo("LogView.dll", stringsReference);
+           // GetVersionInfo("IfPlugin.dll", stringsReference);
+            GetVersionInfo("ExIfJ2534.dll", stringsReference);
+            GetVersionInfo("ExIfKvaser.dll", stringsReference);
+            GetVersionInfo("ExIfVector.dll", stringsReference);
+
+            AboutDialog aboutDialog = new AboutDialog(stringsMain, stringsReference);
+
+            aboutDialog.ShowDialog();
+        }
+        private void GetVersionInfo(string fileName, List<string[]> strings)
+        {
+            System.Diagnostics.FileVersionInfo ver = System.Diagnostics.FileVersionInfo.GetVersionInfo(fileName);
+
+            strings.Add(new string[] { "Filename", ver.OriginalFilename });
+            strings.Add(new string[] { "ProductName", ver.ProductName });
+            strings.Add(new string[] { "Comment", ver.Comments });
+            strings.Add(new string[] {  "CompanyName", ver.CompanyName });
+            strings.Add(new string[] {  "LegalCopyright", ver.LegalCopyright });
+            strings.Add(new string[] {  "FileVersion", ver.FileVersion });
         }
     }
 
