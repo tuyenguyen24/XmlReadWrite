@@ -152,20 +152,14 @@ namespace ReadWriteXml
             }
         }
 
-        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Tab && dataGridView1.CurrentCell.ColumnIndex == 1)
-            {
-                e.Handled = true;
-                DataGridViewCell cell = dataGridView1.Rows[0].Cells[0];
-                dataGridView1.CurrentCell = cell;
-                dataGridView1.BeginEdit(true);
-            }
-        }
+       
 
         private void upToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int rowIndex = dataGridView1.SelectedCells[0].OwningColumn.Index;
+      
+            rowIndex = dataGridView1.SelectedCells[0].OwningRow.Index;
+
+            // create a new row
             DataRow row = table.NewRow();
             for (int i = 0; i < dataGridView1.ColumnCount; i++)
             {
@@ -178,7 +172,7 @@ namespace ReadWriteXml
                 table.Rows.RemoveAt(rowIndex);
                 // add the new row 
                 table.Rows.InsertAt(row, rowIndex - 1);
-                //dataGridView1.ClearSelection();
+                dataGridView1.ClearSelection();
                 // select the new row
                 dataGridView1.Rows[rowIndex - 1].Selected = true;
             }
@@ -634,6 +628,207 @@ namespace ReadWriteXml
             strings.Add(new string[] {  "CompanyName", ver.CompanyName });
             strings.Add(new string[] {  "LegalCopyright", ver.LegalCopyright });
             strings.Add(new string[] {  "FileVersion", ver.FileVersion });
+        }
+
+        private void btCopy_Click(object sender, EventArgs e)
+        {
+            foreach (TreeNode originalNode in this.treeView1.Nodes)
+            {
+                TreeNode newNode = new TreeNode(originalNode.Text);
+                newNode.Tag = originalNode.Tag;
+                this.treeView2.Nodes.Add(newNode);
+                IterateTreeNodes(originalNode, newNode);
+            }
+        }
+        private void IterateTreeNodes(TreeNode originalNode, TreeNode rootNode)
+        {
+            foreach (TreeNode childNode in originalNode.Nodes)
+            {
+
+                TreeNode newNode = new TreeNode(childNode.Text);
+                newNode.Tag = childNode.Tag;
+                this.treeView2.SelectedNode = rootNode;
+                this.treeView2.SelectedNode.Nodes.Add(newNode);
+                IterateTreeNodes(childNode, newNode);
+            }
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            {
+                TreeNode node = this.treeView1.SelectedNode;
+                if (node != null)
+                {
+                    Clipboard.SetDataObject(node, true);
+                }
+            }
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode != null)
+            {
+                TreeNode paste = treeView1.SelectedNode;
+                IDataObject data = Clipboard.GetDataObject();
+                if (data.GetDataPresent(typeof(TreeNode)))
+                {
+                    TreeNode element = (TreeNode)data.GetData(typeof(TreeNode));
+                    TreeNode tn = new TreeNode();
+                    tn.Text = element.Text;
+                    tn.Name = element.Name;
+                    foreach (TreeNode temp in element.Nodes)
+                    {
+                        TreeNode newTn = new TreeNode(temp.Text);
+                        tn.Nodes.Add(newTn);
+                    }
+                    if (paste.Parent != null)
+                    {
+                        paste.Parent.Nodes.Insert(paste.Index + 1, tn);
+
+                    }
+                    else
+                    {
+                        this.treeView1.Nodes.Insert(paste.Index + 1, tn);
+                    }
+                }
+            }
+        }
+
+        private void copyToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DataObject d = dataGridView1.GetClipboardContent();
+            Clipboard.SetDataObject(d);
+        }
+
+        private void pasteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                string s = Clipboard.GetText();
+                string[] lines = s.Split('\n');
+                int row = dataGridView1.CurrentCell.RowIndex;
+                //int col = dataGridView1.CurrentCell.ColumnIndex;
+                foreach (string line in lines)
+                {
+                    string[] cells = line.Split('\t');
+                    int cellsSelected = cells.Length;
+                    if (row < dataGridView1.Rows.Count)
+                    {
+                        for (int i = 0; i < cellsSelected; i++)
+                        {
+                            if (i < dataGridView1.Columns.Count)
+                                dataGridView1[i, row].Value = cells[i + 1];
+                            else
+                                break;
+                        }
+                        row++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("The data you pasted is in the wrong format for the cell");
+                return;
+            }
+
+        }
+        private void PasteClipboardValue()
+        {
+            //Show Error if no cell is selected
+            if (dataGridView1.SelectedCells.Count == 0)
+            {
+                MessageBox.Show("Please select a cell", "Paste",
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            //Get the starting Cell
+           // DataGridViewCell startCell = GetStartCell(dataGridView1);
+            int rowIndex = dataGridView1.Rows.Count - 1;
+            foreach (DataGridViewCell dgvCell in dataGridView1.SelectedCells)
+            {
+                if (dgvCell.RowIndex < rowIndex)
+                    rowIndex = dgvCell.RowIndex;
+              
+            }
+            //Get the clipboard value in a dictionary
+            Dictionary<int, Dictionary<int, string>> cbValue =
+                    ClipBoardValues(Clipboard.GetText());
+
+            foreach (int rowKey in cbValue.Keys)
+            {
+                foreach (int cellKey in cbValue[rowKey].Keys)
+                {
+                    //Check if the index is within the limit
+                    if (rowIndex <= dataGridView1.Rows.Count - 1)
+                    {
+                        DataGridViewCell cell = dataGridView1[0, rowIndex];
+
+                        //Copy to selected cells if 'chkPasteToSelectedCells' is checked
+                        if (cell.Selected)
+                            cell.Value = cbValue[rowKey][cellKey];
+                    }
+                    
+                }
+                rowIndex++;
+            }
+        }
+
+      
+
+        private Dictionary<int, Dictionary<int, string>> ClipBoardValues(string clipboardValue)
+        {
+            Dictionary<int, Dictionary<int, string>>
+            copyValues = new Dictionary<int, Dictionary<int, string>>();
+
+            String[] lines = clipboardValue.Split('\n');
+
+            for (int i = 0; i <= lines.Length - 1; i++)
+            {
+                copyValues[i] = new Dictionary<int, string>();
+                String[] lineContent = lines[i].Split('\t');
+
+                //if an empty cell value copied, then set the dictionary with an empty string
+                //else Set value to dictionary
+                if (lineContent.Length == 0)
+                    copyValues[i][0] = string.Empty;
+                else
+                {
+                    for (int j = 0; j <= lineContent.Length - 1; j++)
+                        copyValues[i][j] = lineContent[j];
+                }
+            }
+            return copyValues;
+        }
+
+        private void dataGridView1_KeyDown_1(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Modifiers == Keys.Control)
+                {
+                    switch (e.KeyCode)
+                    {
+                        case Keys.C:
+                           // CopyToClipboard();
+                            break;
+
+                        case Keys.V:
+                            PasteClipboardValue();
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Copy/paste operation failed. " + ex.Message, "Copy/Paste", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 
